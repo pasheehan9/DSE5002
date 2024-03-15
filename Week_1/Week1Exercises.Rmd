@@ -31,10 +31,10 @@ Show that x is less than z but greater than y.
 
 **Note: your output must be a SINGLE boolean, do not output a boolean for each expression.**
 
-For this exercise, I wrote x is less than z and z is greater than y. I used the & operator between the two arguments to show that both are true. 
+For this exercise, I wrote two arguments, one stating that x is less than z and another stating that x is greater than y. I used the & operator between the two arguments to show that both are true. 
 
 ```{r ex2}
-(x<z) & (z>y)
+(x<z) & (x>y)
 ```
 
 # Exercise 3
@@ -63,7 +63,7 @@ For this question I put parentheses where necessary and used the == operator to 
 # Exercise 5
 I have created a vector (test_vector) of integers for you. Determine if any of x, y, or z are in the vector. 
 
-For this question I called the test_vector shown in the recorded lecture and then used the %in% operator to check if x,y,or z (use of | in between each argument) were in the test_vector.
+For this question I called the test_vector and then used the %in% operator to check if x,y,or z (use of | in between each argument) were in the test_vector.
 
 **Note: your output must be a SINGLE boolean, do not output a boolean for each expression.**
 
@@ -77,7 +77,7 @@ test_vector <- c(1,5,11:22)
 # Exercise 6
 Show which value is contained in the test vector. To do this you will need to create an element-wise logical vector using operators. `x == vector`. Once you have done that you will need to use slicing to return all indices that have matches.
 
-For this exercise I used the or operator (|) to separate x/y/z == test_vector. By having test_vector outside of the brackets, I am checking to see if the elements included in each argument are included in the test_vector.
+For this exercise I used the or operator (|) to separate x/y/z == test_vector. By having test_vector outside of the brackets, I am checking to see which elements included in each individual argument are included in the test_vector.
 
 **Note: your output should be two integers**
 
