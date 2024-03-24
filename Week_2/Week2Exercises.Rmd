@@ -29,7 +29,7 @@ sales <- read.delim("C:/DSE5002/Week_2/Data/sales_pipe.txt"
 # Exercise 2
 You can extract a vector of columns names from a data frame using the colnames() function. Notice the first column has some odd characters. Change the column name for the FIRST column in the sales date frame to Row.ID. 
 
-Here I called the stringr library and then used colnames() to make the columns into a vector. I then pulled first indice and renamed it to Row.ID.
+Here I called the stringr library and then used colnames() to make the columns into a vector. I then pulled the first indice and renamed it to Row.ID.
 
 **Note: You will need to assign the first element of colnames to a single character.**
 
@@ -59,11 +59,11 @@ sales$Ship.Date <- as.Date(sales$Ship.Date
 sales$Order.Date <- as.Date(sales$Order.Date
                            , format= '%m/%d/%Y')
 
-difftime(max(sales$Order.Date),min(sales$Order.Date))
+fulfillment_time <- difftime(max(sales$Order.Date),min(sales$Order.Date))
 
-difftime(max(sales$Order.Date),min(sales$Order.Date)) / dyears(1) ##Years
+fulfillment_time / dyears(1) ##Years
 
-difftime(max(sales$Order.Date),min(sales$Order.Date)) / dweeks(1) ##Weeks
+fulfillment_time / dweeks(1) ##Weeks
 
 
 ```
@@ -72,7 +72,7 @@ difftime(max(sales$Order.Date),min(sales$Order.Date)) / dweeks(1) ##Weeks
 # Exercise 4
 What is the average number of days it takes to ship an order?
 
-Here I took difference between the time it takes to ship by subtracting the order date by the ship date and then took the average of that result. After that I divided it by ddays(1) to get the duration in days instead of seconds.
+Here I took difference between the time it takes to ship by subtracting the order date by the ship date and then took the average of that result. After that I divided it by ddays(1) to get the duration in days.
 
 ```{r}
 # Your code here
@@ -101,12 +101,14 @@ length(str_which(first_name, "Bill"))
 How many mentions of the word 'table' are there in the Product.Name column? 
 **Note you can do this in one line of code**
 
-Here I used str_which to find the indices of the string table in the Product.Name column of sales. I then used length to get the total number. 
+Here I used str_count to find the indices of the word 'table' in the Product.Name column of sales. I then used sum to count the total number of occurrences. 
 
 ```{r}
 # Your code here
+
 library(stringr)
-length(str_which(sales$Product.Name, 'table'))
+
+sum(str_count(sales$Product.Name, 'table'))
 ```
 
 # Exercise 7
@@ -124,7 +126,7 @@ table(sales$State)
 # Exercise 8
 Create an alphabetically ordered barplot for each sales Category in the State of Texas. 
 
-Here I created a dataframe that only included the state of texas. I then turned the category column of the texas_df into a factor so that it would be ordered alphabetically. Lastly I used the table function on the texas_df category column to be able to use the barplot function and display the number of sales by category in texas.
+Here I created a dataframe that only included the state of texas. I then turned the category column of the texas_df into a factor so that it would be ordered alphabetically. Lastly I used the table function on the texas_df category column to be able to use the barplot function and display the number of sales by category in Texas.
 
 ```{r}
 # Your code here
