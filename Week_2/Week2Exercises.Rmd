@@ -61,9 +61,15 @@ sales$Order.Date <- as.Date(sales$Order.Date
 
 fulfillment_time <- difftime(max(sales$Order.Date),min(sales$Order.Date))
 
-fulfillment_time / dyears(1) ##Years
 
-fulfillment_time / dweeks(1) ##Weeks
+print(fulfillment_time) ## Difference in Days
+
+
+fulfillment_time / dyears(1) ##Difference in Years
+
+
+
+fulfillment_time / dweeks(1) ##Difference in Weeks
 
 
 ```
@@ -101,14 +107,14 @@ length(str_which(first_name, "Bill"))
 How many mentions of the word 'table' are there in the Product.Name column? 
 **Note you can do this in one line of code**
 
-Here I used str_count to find the indices of the word 'table' in the Product.Name column of sales. I then used sum to count the total number of occurrences. 
+Here I used str_which to find the indices of the word 'table' in the Product.Name column of sales. I then used length to count the total number of occurrences. 
 
 ```{r}
 # Your code here
 
 library(stringr)
 
-sum(str_count(sales$Product.Name, 'table'))
+length(str_which(sales$Product.Name, 'table'))
 ```
 
 # Exercise 7
