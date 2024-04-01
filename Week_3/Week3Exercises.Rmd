@@ -1,7 +1,7 @@
 ---
 title: "Week 3 Exercises"
-author: "Your Name Here"
-date: "May 19, 2022"
+author: "Patrick Sheehan"
+date: "March 29, 2024"
 output: pdf_document
 ---
 
@@ -43,13 +43,33 @@ Only one valid answer exists.
 
 *Use the function seq_along to iterate*
 
+For this question I used the loop inside a loop approach. The outer loop iterates through the nums_vector and the inner loop iterates through each element of the nums_vector except the last one (-length()). I then assigned the total to be the sum of the current element and the next element. My if statement checks to see if that sum is equal to the target and if so, it prints a vector of the positions. 
+
 ```{r}
 two_sum <- function(nums_vector,target){
   #your code here
   
+  for (i in seq_along(nums_vector)) {
+    
+    for (j in seq_along(nums_vector)[-length(nums_vector)]) {
+      
+      total <- (nums_vector[i]) + (nums_vector[j + 1])
+      
+      if (total == target){
+        
+        a <- i
+        b <- j + 1
+        
+        positions <- c(a,b)
+        
+         print(positions)
+      }
+    }
+  }
 }
-
-
+      
+      
+      
 # Test code
 nums_vector <- c(5,7,12,34,6,10,8,9)
 target <- 13
@@ -69,11 +89,30 @@ Loop the array once to make a hash map of the value to its index. Then loop agai
 
 *A simple implementation uses two iterations. In the first iteration, we add each element's value as a key and its index as a value to the hash table. Then, in the second iteration, we check if each element's complement (target – nums_vector[i]) exists in the hash table. If it does exist, we return current element's index and its complement's index. Beware that the complement must not be nums_vector[i] itself!*
 
+For this question I first called the hash library and then used the hash() function to create a hash table (h). I then used a for loop iterate through each element of the nums_vector. Then I assigned target - nums_vector as the complement and used an if statement to check if each elements complement existed in the hash table. If so, I printed a vector of the current elements index and its complements index. I had to wrap complement in as.character because hash table keys need to be of the character type. Lastly, i is updating the hash table. 
+
 ```{r}
+library(hash)
+
 two_sum <- function(nums_vector,target){
   #your code here
   
+  h <-hash()
+  
+for (i in seq_along(nums_vector)){
+  
+    complement <- target - nums_vector[i]
+  
+if (complement %in% keys(h)){
+    
+    print(c(h[[as.character(complement)]], i))
+  } 
+  
+  h[[as.character(nums_vector[i])]] <- i
+    
+ }
 }
+
 
 
 # Test code
