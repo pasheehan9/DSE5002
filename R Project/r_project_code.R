@@ -30,9 +30,9 @@ print(unique_job_titles)
 
 salary <- salary[salary$company_size != 'L', ]
 
---------------------------------------------
-##Removing Freelance and Part Time Employees
---------------------------------------------
+-------------------------------------------------------------------------------------
+##Removing Freelance and Part Time Employees for foreign v US Median Salary Analysis
+-------------------------------------------------------------------------------------
   
 foreign_median_df <-salary[salary$employment_type %in% c('CT','FT'), ]
 
@@ -51,9 +51,9 @@ foreign_median_df <-foreign_median_df %>%
   group_by(experience_level, employment_type, foreign_residence) %>%
   mutate(median_salary = median(salary_in_usd))
 
------------------------------------------------------------------------
-##Making Experience Level/Remote Ratio more Readable in both Data frames
-------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+##Making Experience Level/Remote Ratio/Foreign Residence more Readable in both Data frames
+------------------------------------------------------------------------------------------
 salary <- salary %>%
   mutate(experience_level = recode(experience_level, EN = 'Entry Level', MI = 'Mid-level', SE =  'Senior Level', EX = 'Executive Level' ))
 
@@ -69,6 +69,12 @@ foreign_median_df$remote_ratio = factor(foreign_median_df$remote_ratio,
                       levels = c(0, 50, 100), 
                       labels = c("On-Site", "Hybrid", "Remote"))
 
+
+foreign_median_df$foreign_residence = factor(foreign_median_df$foreign_residence,
+                      levels = c("TRUE","FALSE"),
+                      labels = c("Foreign","US"))
+
+
 ------------------------------------------------
 ##Recoding employment type for display purposes
 ------------------------------------------------
@@ -76,9 +82,9 @@ foreign_median_df$remote_ratio = factor(foreign_median_df$remote_ratio,
 foreign_median_df <- foreign_median_df %>%
   mutate(employment_type = recode(employment_type, FT = 'Full Time', CT = 'Contract', FL =  'Freelance' ))
   
--------------------------------------------
-##Creating Experience Level Vector to Order
--------------------------------------------
+------------------------------------------------------
+##Creating Experience Level Vector to Order for charts
+------------------------------------------------------
   
 level_order <- c('Entry Level', "Mid-level", "Senior Level", 'Executive Level') 
 
@@ -88,9 +94,9 @@ level_order <- c('Entry Level', "Mid-level", "Senior Level", 'Executive Level')
 
 ggplot(foreign_median_df)+
   geom_point((aes( x= factor(experience_level, level = level_order), y= median_salary, color = foreign_residence, size = 2))) +
-  facet_wrap(.~employment_type) +
+  facet_grid(.~employment_type) +
   scale_y_continuous(labels = scales::dollar_format(), limits = c(0,450000), breaks = c(0,50000,100000,150000,200000,250000,300000,350000,400000,450000))+
-  labs(x= "Experience Level", y = "Median Salary in USD", title = "Median Salary for Contract/Fulltime in Data Jobs",color = "Foreign Residence?")  +
+  labs(x= "Experience Level", y = "Median Salary in USD", title = "Median Salary for US/Foreign Data Science Roles ",color = "Residence")  +
   theme(axis.text.x = element_text(angle = 45)) +
   scale_size_continuous(guide = "none")
 
@@ -124,7 +130,7 @@ ggplot(all_data_scientists) +
   facet_wrap(.~experience_level) +
   scale_x_continuous(breaks = c(2020,2021,2022)) +
   scale_y_continuous(labels = scales::dollar_format(),breaks = c(0,25000,50000,75000,100000,125000,150000),limits = c(0,150000)) +
-  labs(x= "Work Year", y = "Median Salary in USD", title = "Median Data Scientist Salaries Over Time",color = 'Job Title') 
+  labs(x= "Work Year", y = "Median Salary in USD", title = "Median Data Science Salaries Over Time",color = 'Job Title') 
 
 --------------------------------------------------
 ##Creating Data frame for Data Scientist in the US
